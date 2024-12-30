@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface Product {
   name: string;
@@ -14,40 +15,42 @@ interface CartStore {
   updateCountProduct: (id: number, count: number) => void;
 }
 
-export const useCartStore = create<CartStore>((set) => {
-  return {
-    products: [],
-    totalProducts: 0,
-
-    addProduct(product) {
-      set((state) => ({
-        products: [...state.products, product],
-        totalProducts: state.products.length,
-      }));
-    },
-
-    removeProduct(id) {
-      set((state) => ({
-        products: state.products.filter((product) => product.id !== id),
-        totalProducts: state.products.length,
-      }));
-    },
-
-    updateCountProduct(id, newCount) {
-      set((state) => {
-        const [newProduct] = [...state.products].filter(
-          (product) => product.id === id
-        );
-        newProduct.count = newCount;
-        return {
-          products: state.products,
+export const useCartStore = create<CartStore>()(
+  persist((set) => {
+    return {
+      products: [],
+      totalProducts: 0,
+  
+      addProduct(product) {
+        set((state) => ({
+          products: [...state.products, product],
           totalProducts: state.products.length,
-        };
-      });
-    },
-
-    resetCart() {
-      set({ products: [], totalProducts: 0 });
-    },
-  };
-});
+        }));
+      },
+  
+      removeProduct(id) {
+        set((state) => ({
+          products: state.products.filter((product) => product.id !== id),
+          totalProducts: state.products.length,
+        }));
+      },
+  
+      updateCountProduct(id, newCount) {
+        set((state) => {
+          const [newProduct] = [...state.products].filter(
+            (product) => product.id === id
+          );
+          newProduct.count = newCount;
+          return {
+            products: state.products,
+            totalProducts: state.products.length,
+          };
+        });
+      },
+  
+      resetCart() {
+        set({ products: [], totalProducts: 0 });
+      },
+    };
+  }, {name: "cart"})
+);
