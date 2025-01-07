@@ -1,4 +1,4 @@
-function PageCategory(){
+function CategoryPage(){
   return (
     <div>
       <h1>PageCategory Component</h1>
@@ -6,4 +6,4 @@ function PageCategory(){
   );
 };
 
-export default PageCategory;
+export default CategoryPage;

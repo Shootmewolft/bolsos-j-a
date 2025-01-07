@@ -15,16 +15,17 @@ import Image from "next/image";
 interface Props {
   className?: string;
 }
-
 export function CarouselHome({ className }: Props) {
+  const plugin = React.useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: true })
+  );
+
   return (
     <Carousel
-      plugins={[
-        Autoplay({
-          delay: 3000,
-        }),
-      ]}
-      className={`${className} relative`}
+      plugins={[plugin.current]}
+      className={`relative ${className}`}
+      onMouseEnter={plugin.current.stop}
+      onMouseLeave={plugin.current.reset}
     >
       <CarouselContent>
         {Array.from({ length: 4 }).map((_, index) => (
@@ -39,8 +40,8 @@ export function CarouselHome({ className }: Props) {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselNext className="absolute right-2" />
-      <CarouselPrevious className="absolute left-2" />
+      <CarouselPrevious style={{ left: "10px", top: "50%" }} />
+      <CarouselNext style={{ right: "10px", top: "50%" }} />
     </Carousel>
   );
 }

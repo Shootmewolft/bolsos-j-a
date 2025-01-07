@@ -10,4 +10,6 @@ export * from './ui/button';
 export * from './ui/navigation-menu';
 export * from './ui/dropdown-menu';
 export * from './ui/carousel';
-export * from '../home/CarouselHome';
+export * from '../home/components/CarouselHome';
+export * from '../customers/Customers';
+export * from './Section';

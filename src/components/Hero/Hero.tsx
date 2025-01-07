@@ -7,7 +7,7 @@ export function Hero() {
   return (
     <>
       <Banner />
-      <header className="flex justify-between items-center px-12 py-4 gap-3 sticky top-0 z-20 backdrop-blur-sm">
+      <header className="flex justify-between items-center px-12 py-3 gap-3 sticky top-0 z-20 bg-white">
         <picture>
           <Link href="/">
             <Image
