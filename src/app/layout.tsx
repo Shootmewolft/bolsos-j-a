@@ -27,7 +27,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Hero />
-          <main className="min-h-[100dvh] relative dark:bg-accent max-w-screen-2xl mx-auto">
+          <main className="min-h-[100dvh] relative dark:bg-accent max-w-screen-2xl mx-auto container">
             {children}
             <WhatsAppButton />
           </main>

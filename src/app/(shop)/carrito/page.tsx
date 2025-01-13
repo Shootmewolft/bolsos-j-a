@@ -1,8 +1,12 @@
+import { Cart, CartSummary } from "@/components";
+
 function PageCart(){
   return (
-    <div>
-      <h1>PageCart Component</h1>
-    </div>
+    <>
+    <h1 className="text-fontTitle">Tu carrito</h1>
+      <Cart />
+      <CartSummary />
+    </>
   );
 };
 
