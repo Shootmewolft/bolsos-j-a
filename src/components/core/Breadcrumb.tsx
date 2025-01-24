@@ -1,39 +1,41 @@
-"use client";
-
 import {
   Breadcrumb as BreadcrumbElement,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { PATHNAME } from "@/constants/path";
-import { usePath } from "@/hooks";
-import { formatSlug } from "@/lib";
+} from "@/components/ui/breadcrumb"
+import { PATHNAME } from "@/constants/path"
+import { slugToName } from "@/lib"
+import Link from "next/link"
 
-export function Breadcrumb() {
-  const { path } = usePath();
-  console.log(path);
-  
+interface Props {
+  category: string
+  className?: string
+  product?: string
+}
+
+export function Breadcrumb({ category, product, className }: Props) {
   return (
-    <BreadcrumbElement className="ml-16">
+    <BreadcrumbElement className={`${className}`}>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href={PATHNAME.HOME}>Inicio</BreadcrumbLink>
+          <Link href={PATHNAME.HOME}>Inicio</Link>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
-        {path &&
-          path.map((path, index) => (
-            <>
-              <BreadcrumbItem key={index + path}>
-                <BreadcrumbLink href={`/${path}`}>
-                  {formatSlug(path)}
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-            </>
-          ))}
+        <BreadcrumbItem>
+          <Link href={`/${category}`}>{slugToName(category)}</Link>
+        </BreadcrumbItem>
+        {product && (
+          <>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <Link href={`/${category}/${product}`}>
+                {slugToName(product)}
+              </Link>
+            </BreadcrumbItem>
+          </>
+        )}
       </BreadcrumbList>
     </BreadcrumbElement>
-  );
+  )
 }

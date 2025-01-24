@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Hero, Footer, WhatsAppButton } from "@/components";
-import { ThemeProvider } from "@/context/theme.provider";
+import { Hero, Footer, WhatsAppButton, Banner } from "@/components";
+import { Providers } from "@/context";
 import { geistMono, geistSans, titleFont } from "@/lib";
+import { Toaster } from "@/components/ui/toaster"
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,19 +21,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${titleFont.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
+          <Banner />
           <Hero />
-          <main className="min-h-[100dvh] relative dark:bg-accent max-w-screen-2xl mx-auto container">
+          <main className="page container mx-auto flex flex-col justify-between relative max-w-screen-2xl">
             {children}
+            <Toaster />
             <WhatsAppButton />
           </main>
           <Footer />
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

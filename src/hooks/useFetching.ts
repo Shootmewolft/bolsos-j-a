@@ -1,7 +1,8 @@
+import { ApiResponse } from "@/models";
 import { fetching } from "@/services";
 import { useEffect, useState } from "react";
 
-type Data<T> = T | null;
+type Data<T> = ApiResponse<T> | null;
 type ErrorType = Error | null;
 
 interface Props<T> {

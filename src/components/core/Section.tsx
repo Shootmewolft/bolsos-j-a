@@ -9,13 +9,13 @@ interface Props {
 }
 
 export async function Section({ title, url }: Props) {
-  const data = await fetching<sectionProductsType[]>(
+  const response = await fetching<sectionProductsType[]>(
     `${url}/${URL_FETCHING_STRAPI.SECTION}`
   );
-  if (data instanceof Error) {
-    console.error(data.message);
-    return;
+  if (response instanceof Error) {
+    return <h2>¡Hubo un error!</h2>
   }
+  const { data } = response;
 
   return (
     <section className="flex flex-col items-center px-8 py-5 gap-4">

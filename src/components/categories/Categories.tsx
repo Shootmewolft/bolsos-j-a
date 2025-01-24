@@ -1,14 +1,14 @@
-import { Category } from "@/models";
-import { fetching } from "@/services";
-import { Categorie } from "@/components";
-import { URL_FETCHING_STRAPI } from "@/constants";
+import { Category } from "@/models"
+import { fetching } from "@/services"
+import { Categorie } from "@/components"
+import { URL_FETCHING_STRAPI } from "@/constants"
 
 export async function Categories() {
-  const categories = await fetching<Category[]>(URL_FETCHING_STRAPI.CATEGORIES);
-  if (categories instanceof Error) {
-    console.error(categories.message);
-    return;
+  const response = await fetching<Category[]>(URL_FETCHING_STRAPI.CATEGORIES)
+  if (response instanceof Error) {
+    return <h2>¡Hubo un error!</h2>
   }
+  const { data: categories } = response
   return (
     <section className="flex flex-col gap-4 p-8">
       <h2 className="font-bold text-3xl uppercase font-fontTitle text-center">
@@ -25,5 +25,5 @@ export async function Categories() {
         ))}
       </ul>
     </section>
-  );
+  )
 }

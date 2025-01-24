@@ -1,12 +1,22 @@
-import { Category } from "@/models";
-import Image from "next/image";
-import Link from "next/link";
+import { Category } from "@/models"
+import Image from "next/image"
+import Link from "next/link"
 
 export function Categorie({
   icon,
   name,
   slug,
-}: Omit<Category, "id" | "documentId" | "description">) {
+}: Omit<
+  Category,
+  | "id"
+  | "documentId"
+  | "description"
+  | "locale"
+  | "products"
+  | "sub_categories"
+  | "sizes"
+  | "colors"
+>) {
   return (
     <Link
       href={`/${slug}`}
@@ -22,5 +32,5 @@ export function Categorie({
       />
       <small className="font-bold text-sm">{name}</small>
     </Link>
-  );
+  )
 }

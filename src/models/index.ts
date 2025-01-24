@@ -2,3 +2,6 @@ export * from './banner.model';
 export * from './customers.model';
 export * from './sectionProductsType.model';
 export * from './response.model';
+export * from './cart.model';
+export * from './stars.model';
+export * from './filters.model';

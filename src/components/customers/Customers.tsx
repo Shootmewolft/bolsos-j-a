@@ -4,13 +4,13 @@ import { CustomersType } from "@/models";
 import { URL_FETCHING_STRAPI } from "@/constants";
 
 export async function Customers() {
-  const customers = await fetching<CustomersType[]>(URL_FETCHING_STRAPI.CUSTOMERS);
-  if (customers instanceof Error) {
-    console.error(customers.message);
-    return;
+  const response = await fetching<CustomersType[]>(URL_FETCHING_STRAPI.CUSTOMERS);
+  if (response instanceof Error) {
+    return <h2>¡Hubo un error!</h2>
   }
+  const { data: customers } = response;
   return (
-    <section className="px-8 py-8 flex flex-col gap-4">
+    <section className="px-8 pt-8 flex flex-col gap-4">
       <h2 className="text-3xl uppercase font-fontTitle">
         Opiniones de nuestros clientes
       </h2>

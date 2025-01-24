@@ -5,3 +5,8 @@ export * from './Star';
 export * from './HalfStar';
 export * from './Manufacturing';
 export * from './Bag';
+export * from './Trash';
+export * from './Line';
+export * from './Plus';
+export * from './Arrow';
+export * from './ArrowCheck';

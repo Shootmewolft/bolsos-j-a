@@ -1,17 +1,13 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-
-interface Product {
-  name: string;
-  id: number;
-  count: number;
-}
+import { OperationCounter, OperationCounterType, ProductCart } from "@/models"
+import { create } from "zustand"
+import { persist } from "zustand/middleware"
 
 interface CartStore {
-  products: Product[];
-  addProduct: (product: Product) => void;
-  removeProduct: (id: number) => void;
-  updateCountProduct: (id: number, count: number) => void;
+  products: ProductCart[]
+  addProduct: (product: ProductCart) => void
+  removeProduct: (id: number) => void
+  updateCount: (id: number, operation: OperationCounterType) => void
+  resetCart: () => void
 }
 
 export const useCartStore = create<CartStore>()(
@@ -23,32 +19,35 @@ export const useCartStore = create<CartStore>()(
         addProduct(product) {
           set((state) => ({
             products: [...state.products, product],
-          }));
+          }))
         },
 
         removeProduct(id) {
           set((state) => ({
             products: state.products.filter((product) => product.id !== id),
-          }));
+          }))
         },
 
-        updateCountProduct(id, newCount) {
+        updateCount(id, operation) {
           set((state) => {
-            const [newProduct] = [...state.products].filter(
+            const productInCartIndex = [...state.products].findIndex(
               (product) => product.id === id
-            );
-            newProduct.count = newCount;
-            return {
-              products: state.products,
-            };
-          });
+            )
+            const newProducts = [...state.products]
+            const newProduct = newProducts[productInCartIndex]
+            newProduct.count =
+              (operation === OperationCounter.ADD)
+                ? newProduct.count + 1
+                : newProduct.count - 1
+            return { products: newProducts }
+          })
         },
 
         resetCart() {
-          set({ products: [] });
+          set({ products: [] })
         },
-      };
+      }
     },
     { name: "cart" }
   )
-);
+)

@@ -1,6 +1,6 @@
 "use server";
 
-import { Meta } from "@/models";
+import { ApiResponse } from "@/models";
 
 const { NEXT_PUBLIC_STRAPI_URL_API, STRAPI_TOKEN } = process.env;
 
@@ -10,25 +10,18 @@ if (!STRAPI_TOKEN || !NEXT_PUBLIC_STRAPI_URL_API) {
   );
 }
 
-interface ApiResponse<T> {
-  data: T;
-  meta: Meta;
-}
-
 export const fetching = async <T>(
   url: string,
-  controller?: AbortController
-): Promise<T | Error> => {
+): Promise<ApiResponse<T> | Error> => {
   try {
     const response = await fetch(`${NEXT_PUBLIC_STRAPI_URL_API}/${url}`, {
       headers: {
         Authorization: `Bearer ${STRAPI_TOKEN}`,
       },
-      signal: controller?.signal,
     });
     if (!response.ok) throw new Error("Error fetching data");
     const json: ApiResponse<T> = await response.json();
-    return json.data;
+    return json;
   } catch (err) {
     return err as Error;
   }

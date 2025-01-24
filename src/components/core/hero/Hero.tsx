@@ -1,13 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SearchBar, ThemeToggle, Navbar, Banner } from "@/components";
-import { Bag } from "@/icons";
+import {
+  SearchBar,
+  ThemeToggle,
+  Navbar,
+  CartButton,
+} from "@/components";
 
 export function Hero() {
   return (
     <>
-      <Banner />
-      <header className="flex justify-between items-center px-12 py-3 gap-3 sticky top-0 z-20 bg-white">
+      <header className="flex justify-between items-center px-12 py-3 gap-3 sticky top-0 z-20 bg-white border-accent-background border-b-[1px]">
         <picture>
           <Link href="/">
             <Image
@@ -16,15 +19,14 @@ export function Hero() {
               width={40}
               height={112}
               alt="Bolsos J&A"
+              priority
             />
           </Link>
         </picture>
         <Navbar />
-        <SearchBar className="grow" />
+        <SearchBar />
         <div className="flex items-center gap-4">
-          <Link href="/carrito">
-            <Bag className="size-8 dark:text-primary" />
-          </Link>
+          <CartButton />
           <ThemeToggle />
         </div>
       </header>

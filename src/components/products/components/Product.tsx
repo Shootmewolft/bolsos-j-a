@@ -1,10 +1,10 @@
-import Link from "next/link";
-import Image from "next/image";
-import { Product as ProductType } from "@/models";
-import { Stars } from "@/components";
-import { formatPrice } from "@/lib";
+import Link from "next/link"
+import Image from "next/image"
+import { Product as ProductType } from "@/models"
+import { Stars } from "@/components"
+import { formatPrice } from "@/lib"
 
-export async function Product({
+export function Product({
   name,
   calification,
   description,
@@ -14,12 +14,20 @@ export async function Product({
   images,
 }: Omit<
   ProductType,
-  "id" | "documentId" | "createdAt" | "updatedAt" | "publishedAt"
+  | "id"
+  | "documentId"
+  | "createdAt"
+  | "updatedAt"
+  | "publishedAt"
+  | "stock"
+  | "colors"
+  | "sizes"
 >) {
+  const slugProduct = category ? `${category.slug}/${slug}` : slug
   return (
     <Link
-      href={`/${category.slug}/${slug}`}
-      className="transition duration-300 shadow-xl hover:shadow-md p-4 rounded-md"
+      href={slugProduct}
+      className="transition duration-300 shadow-xl hover:shadow-none p-4 rounded-md"
     >
       <picture>
         <Image
@@ -34,15 +42,17 @@ export async function Product({
         <h3 className="font-bold">{name}</h3>
         <div>
           <div className="flex items-center gap-2">
-            <Stars calification={calification} />
+            <Stars calification={calification} size="small" />
             <p>
               {calification}
               <span className="text-black/50">/5</span>
             </p>
           </div>
         </div>
-        <strong className="text-base">{formatPrice(price)}</strong>
+        <div className="flex items-center justify-between">
+          <strong className="text-base">{formatPrice(price)}</strong>
+        </div>
       </div>
     </Link>
-  );
+  )
 }

@@ -2,12 +2,10 @@
 
 import { WhatsApp } from "@/icons/WhatsApp";
 import { MESSAGE, PHONE } from "@/constants";
+import { openNewWindow } from "@/lib";
 
 const handleClick = () => {
-  window.open(
-    `https://api.whatsapp.com/send/?phone=${PHONE}&text=${MESSAGE.WELCOME}`,
-    "_blank noreferrer noopener"
-  );
+  openNewWindow(MESSAGE.WELCOME, PHONE)
 };
 
 export function WhatsAppButton() {

@@ -11,75 +11,32 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components";
-import { MESSAGE, PHONE } from "@/constants";
-
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Riñoneras",
-    href: "/rinoneras",
-    description: "Prácticos accesorios para llevar objetos personales.",
-  },
-  {
-    title: "Sombrillas",
-    href: "/sombrillas",
-    description: "Protección portátil contra el sol y la lluvia.",
-  },
-  {
-    title: "Viajeros",
-    href: "/viajeros",
-    description: "Artículos esenciales para viajes cómodos y organizados.",
-  },
-  {
-    title: "Maletas",
-    href: "/maletas",
-    description:
-      "Contenedores ideales para guardar tus pertenencias durante un viaje.",
-  },
-  {
-    title: "Carriles",
-    href: "/carriles",
-    description: "Prácticas opciones de transporte para cargas ligeras.",
-  },
-  {
-    title: "Morrales",
-    href: "/morrales",
-    description:
-      "Mochilas versátiles para uso diario o actividades al aire libre.",
-  },
-  {
-    title: "Escolares",
-    href: "/escolares",
-    description: "Mochilas y accesorios ideales para estudiantes.",
-  },
-  {
-    title: "Tulas",
-    href: "/tulas",
-    description: "Bolsas ligeras y fáciles de llevar para cualquier actividad.",
-  },
-  {
-    title: "Cartucheras",
-    href: "/cartucheras",
-    description: "Organizadores compactos para útiles escolares o de oficina.",
-  },
-];
+import { MESSAGE, PHONE, URL_FETCHING_STRAPI } from "@/constants";
+import { useFetching } from "@/hooks";
+import { Category } from "@/models";
 
 export function Navbar() {
+  const { data, loading } = useFetching<Category[]>(
+    URL_FETCHING_STRAPI.CATEGORIES
+  );
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Categorías</NavigationMenuTrigger>
           <NavigationMenuContent>
+            {loading && <span>Cargando...</span>}
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-3 lg:w-[600px] ">
-              {components.map((component) => (
-                <ListItem
-                  key={component.title}
-                  title={component.title}
-                  href={component.href}
-                >
-                  {component.description}
-                </ListItem>
-              ))}
+              {data &&
+                data.data.map((component) => (
+                  <ListItem
+                    key={component.name}
+                    title={component.name}
+                    href={`/${component.slug}`}
+                  >
+                    {component.description}
+                  </ListItem>
+                ))}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
@@ -113,11 +70,13 @@ const ListItem = ({
   title,
   children,
   href,
+  className,
   ...props
 }: {
   title: string;
   children: string;
   href: string;
+  className?: string;
 }) => {
   return (
     <li>
@@ -125,8 +84,10 @@ const ListItem = ({
         <Link
           href={href}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
           )}
+          passHref
           {...props}
         >
           <div className="text-sm font-medium leading-none">{title}</div>
