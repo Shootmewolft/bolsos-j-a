@@ -1,3 +1,5 @@
+import { PAGE } from "./products"
+
 export const URL_FETCHING_STRAPI = {
   BANNER: "banner?fields[0]=title",
   SECTION:
@@ -22,7 +24,18 @@ export const URL_FETCHING_STRAPI = {
     if (page) url += `&pagination[page]=${page}`
     if (color) url += `&filters[colors][name]=${color}`
     if (size) url += `&filters[sizes][size]=${size}`
-    if (subCategory) url += `&filters[sub_category][name]=${subCategory}`
+    if (subCategory) url += `&filters[sub_category][slug]=${subCategory}`
+    return url
+  },
+  PRODUCTS_WITHOUT_CATEGORY: ({
+    query,
+    page,
+  }: {
+    query: string
+    page?: number
+  }) => {
+    let url = `products?filters[name][$containsi]=${query}&[populate][images][fields][0]=url&[populate][category][fields][1]=name&[populate][category][fields][2]=slug&filters[isActive]=true&pagination[pageSize]=${PAGE.SIZE}`
+    if (page) url += `&pagination[page]=${page}`
     return url
   },
   PRODUCT: (id: string) => `products/${id}`,

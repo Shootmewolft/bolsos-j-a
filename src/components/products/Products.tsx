@@ -3,6 +3,7 @@ import { Product as ProductType } from "@/models"
 import { fetching } from "@/services"
 import { Product } from "./components"
 import { Pagination } from "../category"
+import { notFound } from "next/navigation"
 
 interface Props {
   categoryProp: string
@@ -12,22 +13,40 @@ interface Props {
   subCategory: string
 }
 
-export async function Products({ categoryProp, page }: Props) {
+export async function Products({
+  categoryProp,
+  page,
+  color,
+  size,
+  subCategory,
+}: Props) {
   const currentPage = !page ? 1 : Number(page)
-  const products = (await fetching<ProductType[]>(
-    `${URL_FETCHING_STRAPI.PRODUCTS(categoryProp, PAGE.SIZE, currentPage)}`
-  ))
+  const products = await fetching<ProductType[]>(
+    `${URL_FETCHING_STRAPI.PRODUCTS(
+      categoryProp,
+      PAGE.SIZE,
+      currentPage,
+      color,
+      size,
+      subCategory
+    )}`
+  )
 
   if (products instanceof Error) {
-    return <h2>¡Hubo un error!</h2>
+    return notFound()
   }
 
   if (products.data.length === 0) {
-    return <h2>No existen productos con estos filtros</h2>
+    return (
+      <h2>
+        Parece que no tenemos lo que estás buscando. Comunícate con nuestro
+        equipo por WhatsApp para darte atención personalizada.
+      </h2>
+    )
   }
 
   return (
-    <div className="flex flex-col gap-4 pr-16">
+    <div className="flex flex-col gap-4 max-md:px-6 md:pr-16 h-full justify-between">
       <ul className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {products.data.map((product) => (
           <Product

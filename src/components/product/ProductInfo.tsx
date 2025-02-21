@@ -18,7 +18,7 @@ export function ProductInfo({
 }: Props) {
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="font-fontTitle text-3xl font-bold">{name}</h2>
+      <h2 className="font-fontTitle text-xl sm:text-2xl md:text-3xl font-bold">{name}</h2>
       <div className="flex items-center gap-4">
         <Stars calification={calification} size="large" />
         <span className="text-sm">

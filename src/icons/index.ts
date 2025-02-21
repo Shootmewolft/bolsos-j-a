@@ -10,3 +10,6 @@ export * from './Line';
 export * from './Plus';
 export * from './Arrow';
 export * from './ArrowCheck';
+export * from './Hamburger';
+export * from './X';
+export * from './Filters';

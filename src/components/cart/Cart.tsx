@@ -1,16 +1,15 @@
-"use client";
+"use client"
 
-import { useCartStore } from "@/store";
-import { ProductCart } from "@/components";
+import { useCartStore } from "@/store"
+import { ProductCart } from "@/components"
 
 export function Cart() {
-  const { products } = useCartStore();
+  const { products } = useCartStore()
   return (
     <section className="flex flex-col gap-4 border border-[#E5E5E5] p-5 rounded-xl">
       {products.map((product, index) => (
-        <>
+        <div key={product.id}>
           <ProductCart
-            key={product.id}
             color={product.color}
             count={product.count}
             id={product.id}
@@ -23,8 +22,8 @@ export function Cart() {
           {index !== products.length - 1 && (
             <hr className="text-accent-background" />
           )}
-        </>
+        </div>
       ))}
     </section>
-  );
+  )
 }

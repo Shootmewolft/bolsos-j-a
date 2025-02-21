@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ButtonProps, buttonVariants } from "@/components/ui/button"
 import Link from "next/link"
+import { PATHNAME } from "@/constants"
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
@@ -48,7 +49,7 @@ const PaginationLink = ({
   ...props
 }: PaginationLinkProps) => (
   <Link
-    href={href || "/"}
+    href={href || PATHNAME.HOME}
     aria-current={isActive ? "page" : undefined}
     className={cn(
       buttonVariants({

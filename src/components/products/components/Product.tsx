@@ -41,7 +41,7 @@ export function Product({
       <div>
         <h3 className="font-bold">{name}</h3>
         <div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <Stars calification={calification} size="small" />
             <p>
               {calification}

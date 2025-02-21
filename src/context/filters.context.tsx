@@ -8,19 +8,22 @@ import {
   ReactNode,
   use,
 } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useWindowWidth } from "@/hooks"
 
 interface Filters {
   color: string | null
   size: string | null
   subCategory: string | null
+  isMobile: boolean
 }
 
 interface FiltersContextState {
   filters: Filters
   setFilters: Dispatch<SetStateAction<Filters>>
   deleteFilter: (filter: keyof Filters) => void
-  resetFilters: () => void
+  resetFilters: VoidFunction
+  isOpenFilters: (isOpen: boolean) => void
 }
 
 const FiltersContext = createContext<FiltersContextState>({
@@ -28,10 +31,12 @@ const FiltersContext = createContext<FiltersContextState>({
     color: null,
     size: null,
     subCategory: null,
+    isMobile: false,
   },
   setFilters: () => {},
   deleteFilter: () => {},
   resetFilters: () => {},
+  isOpenFilters: () => {},
 })
 
 export const FiltersProvider = ({ children }: { children: ReactNode }) => {
@@ -44,8 +49,11 @@ export const FiltersProvider = ({ children }: { children: ReactNode }) => {
     }
     return { color: null, size: null, subCategory: null }
   })
+  const { isMobile } = useWindowWidth()
 
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const currentQuery = new URLSearchParams(searchParams)
 
   useEffect(() => {
     localStorage.setItem("filters", JSON.stringify(filters))
@@ -59,16 +67,30 @@ export const FiltersProvider = ({ children }: { children: ReactNode }) => {
   }
 
   const resetFilters = () => {
-    setFilters({
+    setFilters((prevFilters) => ({
+      ...prevFilters,
       color: null,
       size: null,
       subCategory: null,
-    })
+    }))
+    if (
+      !currentQuery.has("color") &&
+      !currentQuery.has("size") &&
+      !currentQuery.has("subCategory")
+    )
+      return
     router.push(window.location.pathname)
+  }
+  
+  const isOpenFilters = (isOpen: boolean) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      isMobile: isOpen,
+    }))
   }
 
   return (
-    <FiltersContext value={{ filters, setFilters, deleteFilter, resetFilters }}>
+    <FiltersContext value={{ filters, setFilters, deleteFilter, resetFilters, isOpenFilters }}>
       {children}
     </FiltersContext>
   )

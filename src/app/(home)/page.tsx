@@ -2,7 +2,7 @@ import { CarouselHome, Categories, Customers, Section } from "@/components";
 
 function HomePage() {
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-4 md:gap-8">
       <CarouselHome className="w-full" />
       <Categories />
       <Section title="Top en ventas" url="new-arrivals" />

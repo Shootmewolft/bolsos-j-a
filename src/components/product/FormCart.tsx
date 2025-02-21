@@ -1,26 +1,29 @@
 "use client"
 import { Product, SizeTypeCart } from "@/models"
-import { useState } from "react"
-import { SelectCart, Counter, Button } from "@/components"
+import { useEffect, useState } from "react"
+import { Counter, Button } from "@/components"
 import { useCartStore } from "@/store"
 import { useToast } from "@/hooks/use-toast"
 import { productExistsInCart } from "@/lib"
+import { useFiltersContext } from "@/context"
+import { Selector } from "../core/filters/Selector"
 
 interface Props {
   product: Product
 }
 
 export function FormCart({ product }: Props) {
-  const [selectedColor, setSelectedColor] = useState<string | null>(null)
-  const [selectedSize, setSelectedSize] = useState<
-    SizeTypeCart | null | string
-  >(null)
   const [quantity, setQuantity] = useState(1)
   const { products, addProduct } = useCartStore()
+  const { filters, resetFilters } = useFiltersContext()
   const { toast } = useToast()
 
+  useEffect(() => {
+    resetFilters()
+  }, []);
+
   const handleClick = () => {
-    if (!selectedColor || !selectedSize) {
+    if (!filters.color || !filters.size) {
       toast({
         title: "Error al añadir al carrito 🛒",
         description: "Debes seleccionar un color y una talla",
@@ -29,9 +32,9 @@ export function FormCart({ product }: Props) {
       return
     }
     const newProduct = {
-      id: product.id,
-      color: selectedColor,
-      size: selectedSize as SizeTypeCart,
+      id: product.documentId,
+      color: filters.color,
+      size: filters.size as SizeTypeCart,
       count: quantity,
       price: product.price,
       image: product.images[0].url,
@@ -54,30 +57,26 @@ export function FormCart({ product }: Props) {
   }
   return (
     <article className="flex flex-col gap-4">
-      <div className="flex items-center gap-8">
-        <SelectCart
-          options={product.colors}
-          optionMenu="color"
+      <div className="flex items-center gap-3 md:gap-8 flex-col md:flex-row">
+        <Selector
           label="Selecciona un color:"
-          option={selectedColor}
-          setOption={setSelectedColor}
+          optionMenu="color"
+          options={product.colors}
         />
         <hr />
-        <SelectCart
-          options={product.sizes}
-          optionMenu="size"
+        <Selector
           label="Selecciona una talla:"
-          option={selectedSize}
-          setOption={setSelectedSize}
+          optionMenu="size"
+          options={product.sizes}
         />
       </div>
       <hr />
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-4  justify-center items-center flex-row flex-wrap">
         <Counter
           personalCount={{ count: quantity, setCounter: setQuantity }}
           initialCount={quantity}
           stock={product.stock}
-          className="w-[30%] justify-between"
+          className="w-[45%] md:w-[30%] justify-between"
         />
         <Button onClick={handleClick} className="grow rounded-full py-5">
           Añadir al carrito

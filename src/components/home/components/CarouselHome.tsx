@@ -38,8 +38,8 @@ export function CarouselHome({ className }: Props) {
           {error && <p>{error.message}</p>}
         <CarouselItem className="h-full">
           <Image
-            src="/images-2.webp"
-            alt={"Colección REX"}
+            src="/banner.png"
+            alt={"Bolsos J&A"}
             width={1980}
             height={485}
             className="object-cover w-screen h-full"

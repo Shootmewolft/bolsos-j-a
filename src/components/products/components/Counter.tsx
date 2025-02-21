@@ -7,7 +7,7 @@ import { Dispatch, SetStateAction, useState } from "react"
 
 interface Props {
   initialCount: number
-  idProduct?: number
+  idProduct?: string
   stock: number
   className?: string
   personalCount?: {
@@ -36,7 +36,7 @@ export function Counter({
     setCount((prevCount) =>
       operation === OperationCounter.ADD ? prevCount + 1 : prevCount - 1
     )
-    updateCount(idProduct as number, operation)
+    updateCount(idProduct as string, operation)
   }
   
   const countValue = personalCount ? personalCount.count : count

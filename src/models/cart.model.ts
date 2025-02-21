@@ -1,5 +1,5 @@
 export interface ProductCart {
-  id: number;
+  id: string;
   image: string;
   price: number;
   count: number;

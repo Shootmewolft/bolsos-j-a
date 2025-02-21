@@ -32,11 +32,11 @@ export function ProductCart({
       <Image
         alt={name}
         src={`${process.env.NEXT_PUBLIC_STRAPI_HOST}${image}`}
-        className="size-24 aspect-[16/9] object-cover"
+        className="size-24 max-sm:w-[40%] aspect-[16/9] object-contain"
         width={50}
         height={50}
       />
-      <div className="grow">
+      <div className="flex flex-col gap-1 grow">
         <header className="flex items-center justify-between">
           <h3 className="font-bold text-lg">{name}</h3>
           <button
@@ -54,7 +54,7 @@ export function ProductCart({
             Color: <strong className="font-light">{color}</strong>
           </span>
         </div>
-        <footer className="flex items-center justify-between">
+        <footer className="flex items-center justify-center sm:justify-between flex-wrap gap-2">
           <strong className="text-xl">
             {isSixItems
               ? formatPrice(calculateDiscountPrice(newPrice))

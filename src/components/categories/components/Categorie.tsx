@@ -25,12 +25,12 @@ export function Categorie({
     >
       <Image
         src={`${process.env.NEXT_PUBLIC_STRAPI_HOST}${icon.url}`}
-        className="size-14"
+        className="size-11 md:size-14"
         alt={name}
         width={100}
         height={100}
       />
-      <small className="font-bold text-sm">{name}</small>
+      <small className="font-bold text-xs text-center md:text-sm">{name}</small>
     </Link>
   )
 }

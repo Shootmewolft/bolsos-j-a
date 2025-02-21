@@ -18,17 +18,16 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   if (product instanceof Error) {
     notFound()
   }
-  console.log(product)
 
   return (
-    <section className="gap-12 items-center px-24">
+    <section className="gap-12 items-center px-8 md:px-24">
       <Breadcrumb
         className="py-4"
         category={product.category.slug}
         product={product.slug}
       />
-      <div className="grid grid-cols-[45dvw_1fr] gap-16 py-4">
-        <CarouselProduct images={product.images} />
+      <div className="grid grid-cols-1 md:grid-cols-[45dvw_1fr] gap-8 md:gap-16 py-4">
+        <CarouselProduct className="max-sm:h-[25dvh]"  images={product.images} />
         <div className="flex flex-col gap-4">
           <ProductInfo
             calification={product.calification}

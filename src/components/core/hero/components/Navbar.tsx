@@ -10,22 +10,27 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
+  SkeletronProduct,
 } from "@/components";
-import { MESSAGE, PHONE, URL_FETCHING_STRAPI } from "@/constants";
+import { MESSAGE, PATHNAME, PHONE, URL_FETCHING_STRAPI } from "@/constants";
 import { useFetching } from "@/hooks";
 import { Category } from "@/models";
 
-export function Navbar() {
+interface Props{
+  className?: string;
+}
+
+export function Navbar({ className }: Props) {
   const { data, loading } = useFetching<Category[]>(
     URL_FETCHING_STRAPI.CATEGORIES
   );
   return (
-    <NavigationMenu>
+    <NavigationMenu className={`${className}`}>
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Categorías</NavigationMenuTrigger>
           <NavigationMenuContent>
-            {loading && <span>Cargando...</span>}
+            {loading && <SkeletronProduct />}
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-3 lg:w-[600px] ">
               {data &&
                 data.data.map((component) => (
@@ -41,7 +46,7 @@ export function Navbar() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/nosotros" legacyBehavior passHref>
+          <Link href={PATHNAME.ABOUT} legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Sobre nosotros
             </NavigationMenuLink>
@@ -66,7 +71,7 @@ export function Navbar() {
   );
 }
 
-const ListItem = ({
+export const ListItem = ({
   title,
   children,
   href,

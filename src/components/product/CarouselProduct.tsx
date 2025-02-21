@@ -27,7 +27,7 @@ export function CarouselProduct({ images, className }: Props) {
               alt={image.name}
               width={500}
               height={505}
-              className="object-contain aspect-video w-full h-full"
+              className="object-contain aspect-video w-full max-sm:h-[25dvh] md:h-full"
             />
           </CarouselItem>
         ))}

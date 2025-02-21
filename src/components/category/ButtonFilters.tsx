@@ -12,20 +12,16 @@ export function ButtonFilters() {
 
   const handleClick = () => {
     const currentQuery = new URLSearchParams(searchParams)
-    if (
-      !currentQuery.has("color") &&
-      !currentQuery.has("size") &&
-      !currentQuery.has("subCategory")
-    ) {
+    if (!filters.color && !filters.size && !filters.subCategory) {
       toast({ title: "No hay filtros seleccionados." })
     }
-    if (filters.color && !currentQuery.has("color")) {
+    if (filters.color) {
       currentQuery.set("color", filters.color)
     }
-    if (filters.size && !currentQuery.has("size")) {
+    if (filters.size) {
       currentQuery.set("size", filters.size)
     }
-    if (filters.subCategory && !currentQuery.has("subCategory")) {
+    if (filters.subCategory) {
       currentQuery.set("subCategory", filters.subCategory)
     }
     router.push(`?${currentQuery.toString()}`)

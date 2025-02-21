@@ -5,8 +5,8 @@ import { persist } from "zustand/middleware"
 interface CartStore {
   products: ProductCart[]
   addProduct: (product: ProductCart) => void
-  removeProduct: (id: number) => void
-  updateCount: (id: number, operation: OperationCounterType) => void
+  removeProduct: (id: string) => void
+  updateCount: (id: string, operation: OperationCounterType) => void
   resetCart: () => void
 }
 
