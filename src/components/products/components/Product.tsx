@@ -27,7 +27,7 @@ export function Product({
   return (
     <Link
       href={slugProduct}
-      className="transition duration-300 shadow-xl hover:shadow-none p-4 rounded-md"
+      className="transition duration-300 shadow-lg hover:shadow-xl hover:-translate-y-2 p-4 rounded-md"
     >
       <picture>
         <Image

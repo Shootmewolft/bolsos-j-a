@@ -33,7 +33,7 @@ export function Navbar({ className }: Props) {
             {loading && <SkeletronProduct />}
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-3 lg:w-[600px] ">
               {data &&
-                data.data.map((component) => (
+                (Array.isArray(data) ? data : data.data).map((component) => (
                   <ListItem
                     key={component.name}
                     title={component.name}

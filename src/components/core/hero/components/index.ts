@@ -3,3 +3,8 @@ export * from './Navbar';
 export * from './SearchBar';
 export * from './CartButton';
 export * from './NavbarMobile';
+export * from './HorizontalLine';
+export * from './TitleNavbar';
+export * from './LinkMenu';
+export * from './HamburgerMenu';
+export * from './OptionMenu';

@@ -4,8 +4,9 @@ import { Button } from "../ui"
 import { useRouter } from "next/navigation"
 import { useSearchParams } from "next/navigation"
 import { toast } from "@/hooks/use-toast"
+import { ComponentProps } from "react"
 
-export function ButtonFilters() {
+export function ButtonFilters(props: ComponentProps<"button">) {
   const { filters } = useFiltersContext()
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -27,5 +28,5 @@ export function ButtonFilters() {
     router.push(`?${currentQuery.toString()}`)
   }
 
-  return <Button onClick={handleClick}>Aplicar filtros</Button>
+  return <Button onClick={handleClick} className={props.className}>Aplicar filtros</Button>
 }

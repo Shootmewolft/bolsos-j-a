@@ -5,3 +5,4 @@ export * from './response.model';
 export * from './cart.model';
 export * from './stars.model';
 export * from './filters.model';
+export * from './search.model';

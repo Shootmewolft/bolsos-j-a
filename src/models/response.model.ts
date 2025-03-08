@@ -89,3 +89,9 @@ export interface SubCategory {
   name: string
   slug: string
 }
+
+export interface CategoryFetching{
+  category: Category
+  sizes: Size[]
+  colors: Color[]
+}

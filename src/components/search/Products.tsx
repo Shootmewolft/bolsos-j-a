@@ -40,7 +40,7 @@ export function Products({ initialProducts, query, totalPages }: Props) {
         loader={<SkeletronProduct />}
         next={fetchingMore}
         hasMore={page < totalPages}
-        className="grid grid-cols-3 gap-8 p-8"
+        className="grid grid-cols-2 md:grid-cols-3 gap-5 p-5 md:gap-8 md:p-8"
       >
         {products.map((product) => (
           <Product

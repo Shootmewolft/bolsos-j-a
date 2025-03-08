@@ -1,31 +1,27 @@
 "use client"
-import { redirect } from "next/navigation"
 import { SearchIcon } from "lucide-react"
-import { FormEvent } from "react"
-import { toast } from "@/hooks/use-toast"
+import { ComponentProps, useActionState } from "react"
 import { Input } from "@/components"
-import { PATHNAME } from "@/constants"
+import { search } from "@/actions"
+import { initialState } from "@/models"
 
-interface Props{
-  className?: string
-}
-
-export function SearchBar({ className }: Props) {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const form = event.currentTarget
-    const fields = Object.fromEntries(new FormData(form))
-    const query = (fields.query as string).trim().toLowerCase()
-    if (!query) {
-      toast({ title: "Debes ingresar un valor para buscar" })
-      return
-    }
-    form.reset()
-    redirect(PATHNAME.SEARCH(query))
-  }
-
+export function SearchBar({ className, ...props }: ComponentProps<"form">) {
+  // const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault()
+  //   const form = event.currentTarget
+  //   const fields = Object.fromEntries(new FormData(form))
+  //   const query = (fields.query as string).trim().toLowerCase()
+  //   if (!query) {
+  //     toast({ title: "Debes ingresar un valor para buscar" })
+  //     return
+  //   }
+  //   form.reset()
+  //   redirect(PATHNAME.SEARCH(query))
+  // }
+  const [state, actionState, isPending] = useActionState(search, initialState)
+  console.log(state)
   return (
-    <form className={`${className} relative grow`} onSubmit={handleSubmit}>
+    <form className={`${className} relative grow`} action={actionState} {...props}>
       <SearchIcon className="absolute top-[22%] left-[5px] text-gray-500 size-5" />
       <Input
         placeholder="Busca aquí tus productos.."

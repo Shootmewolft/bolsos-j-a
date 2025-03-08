@@ -17,10 +17,8 @@ async function CategoryPage({
   const { page, color, size, sub_category: subCategory } = await searchParams
 
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-[1fr_3fr] gap-12 items-center">
-      <Suspense fallback={<SkeletronProduct />}>
-        <Filters categoryProp={category} />
-      </Suspense>
+    <section className="grid grid-cols-1 lg:grid-cols-[1fr_3fr] gap-16 items-center">
+      <Filters categoryProp={category} />
       <div className="flex flex-col gap-4 self-start h-full">
         <HeaderCategory category={category} />
         <Suspense fallback={<SkeletronProduct />}>

@@ -43,7 +43,7 @@ export const slugToName = (slug: string) => {
 
 export function productExistsInCart(
   products: ProductCart[],
-  idProduct: number
+  idProduct: string
 ): ProductCart | undefined {
   return products.find((product) => product.id === idProduct)
 }

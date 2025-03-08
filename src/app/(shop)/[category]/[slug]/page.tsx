@@ -27,7 +27,7 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
         product={product.slug}
       />
       <div className="grid grid-cols-1 md:grid-cols-[45dvw_1fr] gap-8 md:gap-16 py-4">
-        <CarouselProduct className="max-sm:h-[25dvh]"  images={product.images} />
+        <CarouselProduct className="max-sm:h-[25dvh]" images={product.images} />
         <div className="flex flex-col gap-4">
           <ProductInfo
             calification={product.calification}

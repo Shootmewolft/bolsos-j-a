@@ -9,7 +9,7 @@ function PageCart() {
       <h2 className="font-bold text-xl sm:text-2xl md:text-3xl uppercase font-fontTitle mt-8 px-12">
         Tu carrito
       </h2>
-      <hr className="relative w-[80%] md:w-[94%] left-12" />
+      <hr className="relative w-[75%] md:w-[94%] left-12" />
       {products.length ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-6 md:px-12">
           <Cart />

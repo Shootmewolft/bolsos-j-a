@@ -1,6 +1,6 @@
 "use client"
-import { Product, SizeTypeCart } from "@/models"
-import { useEffect, useState } from "react"
+import { Product, ProductCart, SizeTypeCart } from "@/models"
+import { useState } from "react"
 import { Counter, Button } from "@/components"
 import { useCartStore } from "@/store"
 import { useToast } from "@/hooks/use-toast"
@@ -15,12 +15,8 @@ interface Props {
 export function FormCart({ product }: Props) {
   const [quantity, setQuantity] = useState(1)
   const { products, addProduct } = useCartStore()
-  const { filters, resetFilters } = useFiltersContext()
+  const { filters } = useFiltersContext()
   const { toast } = useToast()
-
-  useEffect(() => {
-    resetFilters()
-  }, []);
 
   const handleClick = () => {
     if (!filters.color || !filters.size) {
@@ -31,7 +27,7 @@ export function FormCart({ product }: Props) {
       })
       return
     }
-    const newProduct = {
+    const newProduct: ProductCart = {
       id: product.documentId,
       color: filters.color,
       size: filters.size as SizeTypeCart,
@@ -41,7 +37,8 @@ export function FormCart({ product }: Props) {
       name: product.name,
       stock: product.stock,
     }
-    const existProduct = productExistsInCart(products, product.id)
+    const existProduct = productExistsInCart(products, product.documentId)
+
     if (existProduct) {
       toast({
         title: "El producto ya se encuentra en el carrito 🛒",

@@ -1,3 +1,4 @@
+"use client"
 import { SCREEN } from "@/constants"
 import { useState, useEffect } from "react"
 

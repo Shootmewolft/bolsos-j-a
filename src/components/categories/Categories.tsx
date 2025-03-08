@@ -14,7 +14,7 @@ export async function Categories() {
       <h2 className="font-bold text-xl sm:text-2xl md:text-3xl uppercase font-fontTitle text-center">
         Encuentra lo que buscas
       </h2>
-      <ul className="grid grid-cols-4 md:grid-cols-5 lg:8">
+      <ul className="grid grid-cols-4 md:grid-cols-6 lg:8">
         {categories.map((category) => (
           <Categorie
             key={category.id}
