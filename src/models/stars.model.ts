@@ -1,8 +1,7 @@
+export enum SizesStars {
+	SMALL = "small",
+	MEDIUM = "medium",
+	LARGE = "large",
+}
 
-export const enum SizesStars {
-  SMALL = "small",
-  MEDIUM= "medium",
-  LARGE= "large"
-};
-
-export type SizesStarsType = `${SizesStars}`;
+export type SizesStarsType = `${SizesStars}`

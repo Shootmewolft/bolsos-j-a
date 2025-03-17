@@ -1,19 +1,19 @@
 export interface ProductCart {
-  id: string
-  image: string
-  price: number
-  count: number
-  name: string
-  size: SizeTypeCart
-  color: string
-  stock: number
+	id: string
+	image: string
+	price: number
+	count: number
+	name: string
+	size: SizeTypeCart
+	color: string
+	stock: number
 }
 
 export type SizeTypeCart = "S" | "M" | "L"
 
-export const enum OperationCounter {
-  ADD = "ADD",
-  SUBSTRACT = "SUBSTRACT",
+export enum OperationCounter {
+	ADD = "ADD",
+	SUBSTRACT = "SUBSTRACT",
 }
 
 export type OperationCounterType = `${OperationCounter}`

@@ -1,3 +1,3 @@
 export const PAGE = {
-  SIZE: 9,
+	SIZE: 9,
 }

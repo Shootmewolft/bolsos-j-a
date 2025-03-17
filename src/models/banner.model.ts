@@ -1,5 +1,5 @@
 export interface BannerType {
-  id: number;
-  documentId: string;
-  title: string;
+	id: number
+	documentId: string
+	title: string
 }
