@@ -45,7 +45,7 @@ export function CarouselHome({ className }: Props) {
 						className="object-cover w-screen h-full"
 					/>
 				</CarouselItem>
-				{data?.data.images.map((image) => (
+				{data && "data" in data && data.data.images.map((image) => (
 					<CarouselItem key={image.id} className="h-full">
 						<Image
 							src={`${process.env.NEXT_PUBLIC_STRAPI_HOST}${image.url}`}
